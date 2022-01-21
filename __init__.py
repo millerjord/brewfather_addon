@@ -1,24 +1,37 @@
 import requests
 import json
 import base64
+import asyncio
+import logging
 from datetime import datetime
 
-from homeassistant.const import HTTP_NOT_FOUND, HTTP_BAD_REQUEST
-from homeassistant.core import callback
-from homeassistant.components import http
-from homeassistant.components.http.data_validator import RequestDataValidator
-from homeassistant.helpers import intent
-import homeassistant.helpers.config_validation as cv
-from homeassistant.util.json import load_json, save_json
-from homeassistant.components import websocket_api
 from homeassistant.const import (CONF_PASSWORD, CONF_USERNAME)
 
+from homeassistant import config_entries, core
 
-DOMAIN = "brewfather"
+from .const import DOMAIN
 
+_LOGGER = logging.getLogger(__name__)
 
-async def async_setup(hass, config):
-    hass.states.async_set("brewfather.brewer", "Rune")
+PLATFORMS = ("sensor")
 
-    # Return boolean to indicate that initialization was successful.
+async def async_setup(hass: core.HomeAssistant, config: dict) -> bool:
+    hass.data.setdefault(DOMAIN, {})
+    return True
+
+async def async_setup_entry(
+    hass: core.HomeAssistant, entry: config_entries.ConfigEntry
+) -> bool:
+    """Set up platforms from a ConfigEntry."""
+    url = entry.data["url"]
+    hass.data[DOMAIN][entry.entry_id] = SensorManager(hass, url)
+
+    if not entry.unique_id:
+        hass.config_entries.async_update_entry(entry, unique_id="brewfather")
+
+    for component in PLATFORMS:
+        hass.async_create_task(
+            hass.config_entries.async_forward_entry_setup(entry, component)
+        )
+
     return True

@@ -1,10 +1,14 @@
-async def async_setup_platform(
-    hass: HomeAssistantType,
-    config: ConfigType,
-    async_add_entities: Callable,
-    discovery_info: Optional[DiscoveryInfoType] = None,
-) -> None:
-    """Set up the sensor platform."""
-    session = async_get_clientsession(hass)
-    sensors = [GitHubRepoSensor(github, repo) for repo in config[CONF_REPOS]]
-    async_add_entities(sensors, update_before_add=True)
+from homeassistant import config_entries, core
+
+from .const import DOMAIN
+
+
+async def async_setup_entry(
+    hass: core.HomeAssistant,
+    config_entry: config_entries.ConfigEntry,
+    async_add_entities,
+):
+    """Defer sensor setup to the sensor manager."""
+    await hass.data[DOMAIN][config_entry.entry_id].async_register_component(
+        "sensor", async_add_entities
+    )
