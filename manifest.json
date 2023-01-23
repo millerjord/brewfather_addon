@@ -1,10 +1,13 @@
 {
-  "domain": "brewfather",
-  "name": "Brewfather Integration",
-  "documentation": "https://www.example.com",
-  "dependencies": [],
-  "codeowners": [],
-  "requirements": [],
-  "iot_class": "cloud_polling"
+    "id": "brewfather",
+    "name": "Brewfather",
+    "description": "Integration for Brewfather",
+    "domain": "sensor",
+    "homeassistant": [
+        ">= 0.96"
+    ],
+    "dependencies": [
+        "requests"
+    ]
 }
 
