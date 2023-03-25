@@ -1,7 +1,5 @@
 # brewfather_addon
-configuration.yaml-code
-sensor:
-  - platform: brewfather
-    api_key: YOUR_API_KEY
-    brew_id: YOUR_BREW_ID
 
+My first try to create a Home Assistant add-on, that can grab the latest data on the batch(es) currently fermenting.
+
+Do not use, this is still garbage!!!

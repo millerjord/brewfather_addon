@@ -1,7 +1,5 @@
 # custom_components/brewfather_addon/sensor.py
 
-"""Support for Brewfather sensor."""
-
 import requests
 import json
 import base64
@@ -83,9 +81,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
 
 class BrewfatherSensor(Entity):
-    """Representation of a Brewfather Sensor."""
 
     def __init__(self, name, unit_of_measurement, device_class, batch_no, beer_name, brewdate, temp, timestamp):
-        """Initialize the sensor."""
         self._name = name
        
