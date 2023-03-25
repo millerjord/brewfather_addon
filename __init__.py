@@ -18,7 +18,7 @@ config_entry_flow.register_webhook_flow(
     DOMAIN,
     "Brewfather Webhook",
     {
-        "docs_url": "https://github.com/example/brewfather-hass-custom-component",
+        "docs_url": "https://github.com/millerjord/brewfather_addon",
     },
     BrewfatherConfigFlow,
 )
