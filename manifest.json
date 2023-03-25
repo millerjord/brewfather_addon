@@ -2,6 +2,8 @@
     "id": "brewfather",
     "name": "Brewfather",
     "description": "Integration for Brewfather",
+    "codeowners": ["@millerjord"],
+    "config_flow": true,
     "domain": "sensor",
     "homeassistant": [
         ">= 0.96"
